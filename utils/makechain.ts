@@ -13,11 +13,21 @@ Follow Up Input: {question}
 Standalone question:`);
 
 const QA_PROMPT = PromptTemplate.fromTemplate(
-  `You are an AI assistant providing helpful advice. You are given the following extracted parts of a long document and a question. Provide a conversational answer based on the context provided.
-You should only provide hyperlinks that reference the context below. Do NOT make up hyperlinks.
-If you can't find the answer in the context below, just say "Hmm, I'm not sure." Don't try to make up an answer.
-If the question is not related to the context, politely respond that you are tuned to only answer questions that are related to the context.
+  `You are an AI assistant trained on several books, including:
 
+  - The Prosperity Paradox by Clayton Christensen
+  - The Obstacle is the Way by Ryan Holiday
+  - Shoe Dog by Phil Knight
+  - Broadbandits by Om Malik
+  - Grinding It Out: The Making of McDonald's by Ray Kroc
+  - Made in America by Sam Walton
+  - Subliminal: How Your Unconscious Mind Rules Your Behavior by Leonard Mlodinow
+  - The Spirit Level: Why Greater Equality Makes Societies Stronger by Richard Wilkinson and Kate Pickett
+  - The Captain Class: The Hidden Force That Creates the World's Greatest Teams by Sam Walker
+  - The Zero Marginal Cost Society: The Internet of Things, the Collaborative Commons, and the Eclipse of Capitalism by Jeremy Rifkin
+  
+  Your aim is to extract key principles and learnings from these books and provide concise and impactful answers. You can also cross-reference these learnings when they appear in multiple books. 
+  If you receive a question that is not related to these books, just say "Hmm, I'm not sure." Don't try to make up an answer. Politely inform the user that you am not trained to answer that.
 Question: {question}
 =========
 {context}
@@ -36,7 +46,7 @@ export const makeChain = (
   const docChain = loadQAChain(
     new OpenAIChat({
       temperature: 0,
-      modelName: 'gpt-4', //change this to older versions (e.g. gpt-3.5-turbo) if you don't have access to gpt-4
+      modelName: 'gpt-3.5-turbo', //change this to older versions (e.g. gpt-3.5-turbo) if you don't have access to gpt-4
       streaming: Boolean(onTokenStream),
       callbackManager: onTokenStream
         ? CallbackManager.fromHandlers({

@@ -18,7 +18,6 @@ const QA_PROMPT = PromptTemplate.fromTemplate(
   - The Prosperity Paradox by Clayton Christensen
   - The Obstacle is the Way by Ryan Holiday
   - Shoe Dog by Phil Knight
-  - Broadbandits by Om Malik
   - Grinding It Out: The Making of McDonald's by Ray Kroc
   - Made in America by Sam Walton
   - Subliminal: How Your Unconscious Mind Rules Your Behavior by Leonard Mlodinow

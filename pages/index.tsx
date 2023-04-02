@@ -27,7 +27,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: "Hi, what would you like to learn from me? I'm a book bot!'",
+        message: "Hi, what would you like to learn from me?",
         type: 'apiMessage',
       },
     ],
@@ -161,12 +161,16 @@ export default function Home() {
   }, [chatMessages]);
 
   return (
+    // centered container with one sentence of text inside it
     <>
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
             AKC Book Bot
           </h1>
+          <p className="mx-auto text-center text-gray-600 max-w-lg">
+          Ask me about books! I'm trained on The Prosperity Paradox, The Obstacle is the Way, Shoe Dog, Grinding It Out, Made in America, Subliminal, The Spirit Level, The Captain Class, and The Zero Marginal Cost Society.
+          </p>
           <main className={styles.main}>
             <div className={styles.cloud}>
               <div ref={messageListRef} className={styles.messagelist}>
@@ -222,23 +226,32 @@ export default function Home() {
                             collapsible
                             className="flex-col"
                           >
-                            {message.sourceDocs.map((doc, index) => (
-                              <div key={`messageSourceDocs-${index}`}>
-                                <AccordionItem value={`item-${index}`}>
-                                  <AccordionTrigger>
-                                    <h3>Source {index + 1}</h3>
-                                  </AccordionTrigger>
-                                  <AccordionContent>
-                                    <ReactMarkdown linkTarget="_blank">
-                                      {doc.pageContent}
-                                    </ReactMarkdown>
-                                    <p className="mt-2">
-                                      <b>Source:</b> {doc.metadata.source}
-                                    </p>
-                                  </AccordionContent>
-                                </AccordionItem>
-                              </div>
-                            ))}
+                            {message.sourceDocs.map(
+                              (doc, index) => (
+                                console.log(doc.metadata),
+                                (
+                                  <div key={`messageSourceDocs-${index}`}>
+                                    <AccordionItem value={`item-${index}`}>
+                                      <AccordionTrigger>
+                                        <h3>Source {index + 1}</h3>
+                                      </AccordionTrigger>
+                                      <AccordionContent>
+                                        <ReactMarkdown linkTarget="_blank">
+                                          {doc.pageContent}
+                                        </ReactMarkdown>
+                                        <p className="mt-2">
+                                          <b>Source:</b>{' '}
+                                          {doc.metadata.source
+                                            .split('/')
+                                            .pop()
+                                            .slice(0, -4)}
+                                        </p>
+                                      </AccordionContent>
+                                    </AccordionItem>
+                                  </div>
+                                )
+                              ),
+                            )}
                           </Accordion>
                         </div>
                       )}
@@ -282,7 +295,7 @@ export default function Home() {
                     placeholder={
                       loading
                         ? 'Waiting for response...'
-                        : 'What is this book about?'
+                        : "What do you want to know? Try 'What is nonconsumption?' or 'Provide an anecdote of Sam Walton's frugality'"
                     }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
@@ -317,10 +330,16 @@ export default function Home() {
               </div>
             )}
           </main>
-        </div>        
+        </div>
         <footer className="m-auto p-4">
           <p>
-          Built by <a href="https://stokoe.me">Keagan Stokoe</a>. Powered by <a href="https://nextjs.org/">Langchain</a> and inspired by <a href="https://github.com/mayooear/gpt4-pdf-chatbot-langchain">mayoear</a>. Book recommendations by <a href="https://www.bigalmanack.com/">AKC</a>.
+            Built by <a href="https://stokoe.me">Keagan Stokoe</a>. Powered by{' '}
+            <a href="https://nextjs.org/">Langchain</a> and inspired by{' '}
+            <a href="https://github.com/mayooear/gpt4-pdf-chatbot-langchain">
+              mayoear
+            </a>
+            . Book recommendations by{' '}
+            <a href="https://www.bigalmanack.com/">AKC</a>.
           </p>
         </footer>
       </Layout>

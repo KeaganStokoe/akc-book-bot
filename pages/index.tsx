@@ -317,11 +317,11 @@ export default function Home() {
               </div>
             )}
           </main>
-        </div>
+        </div>        
         <footer className="m-auto p-4">
-          <a href="https://stokoe.me">
-            Powered by LangChainAI. Demo built by Keagan
-          </a>
+          <p>
+          Built by <a href="https://stokoe.me">Keagan Stokoe</a>. Powered by <a href="https://nextjs.org/">Langchain</a> and inspired by <a href="https://github.com/mayooear/gpt4-pdf-chatbot-langchain">mayoear</a>. Book recommendations by <a href="https://www.bigalmanack.com/">AKC</a>.
+          </p>
         </footer>
       </Layout>
     </>
